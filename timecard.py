@@ -23,7 +23,7 @@ names_sheet = sh.worksheet("names")
 names = names_sheet.col_values(1) # A列の名前
 
 #名前選択
-selected_name = st.selectbox("スタッフ名を選択", names)
+selected_name = st.selectbox("🌟スタッフ名を選択", names)
 
 #出勤ボタン
 if st.button("出勤"):
