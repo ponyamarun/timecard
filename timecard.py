@@ -36,7 +36,7 @@ if st.button("出勤"):
 if st.button("退勤"):
   target_sheet = sh.worksheet(selected_name)
   records = target_sheet.get_all_values()
-  df = pd.DataFrame(records[1:],colmuns=records[0])
+  df = pd.DataFrame(records[1:],columns=records[0])
 
   #最後の未退勤レコードを探す
   target = df[(df['名前'] == selected_name) & (df['退勤時刻'] == "")]
