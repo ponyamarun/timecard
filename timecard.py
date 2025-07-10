@@ -3,14 +3,16 @@ import gspread
 from datetime import datetime
 import pandas as pd
 from google.oauth2.service_account import Credentials
+import json
 
 #環境変数取得
-SHEET_KEY = st.secrets["gspread"]["sheet_key"]
+SHEET_KEY = st.secrets["sheet_key"]
 
 #認証
 SCOPE = ["https://spreadsheets.google.com/feeds",
          "https://www.googleapis.com/auth/drive"]
-creds = Credentials.from_service_account_file('service_account.json', scopes=SCOPE)
+service_account_info = json.loads(st.secrets["gcp_service_account"])
+creds = Credentials.from_service_account_info(service_account_info)
 gc = gspread.authorize(creds)
 
 #スプレッドシート設定
@@ -18,10 +20,7 @@ sh = gc.open_by_key(SHEET_KEY)
 
 #名前一覧取得
 names_sheet = sh.worksheet("names")
-names = nemes_sheet.col_values(1) # A列の名前一覧
-
-#勤怠データ用シート
-records_sheet = sh.worksheet("records")
+names = names_sheet.col_values(1) # A列の名前
 
 #名前選択
 selected_name = st.selectbox("スタッフ名を選択", names)
